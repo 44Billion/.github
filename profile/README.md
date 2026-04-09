@@ -1,96 +1,53 @@
 ## 44Billion
 
-[44Billion](https://44billion.net) is a `napp launcher`.
-It is a website where you can discover and launch
-Nostr webapps, called `napps`, for short.
+[44Billion.net](https://44billion.net) is a website that
+presents itself as a thin layer, a toolbar where
+the Nostr apps you install are placed.
 
-A `napp` is a good ol' static website bundled as a Nostr event.
-Each of its files is split into tiny chunk events, all signed by the author.
+#### Initial View
 
-A `napp launcher` is expected to handle all the boring multi-account
-sign in/up flow and make the
-[NIP-07](https://github.com/nostr-protocol/nips/blob/master/07.md)'s
-`window.nostr` object available to the napps.
+One of the initial apps is an app store.
 
-### Auto-Login
+<img width="495" height="501" alt="0-init-view" src="https://github.com/user-attachments/assets/5620ddfb-1268-43ad-9cdd-8972626ccc41" />
 
-Napps can use the new `await window.nostr.peekPublicKey()` method
-to learn who is the logged-in user.
+#### App Store
 
-The classic `getPublicKey` function is still there,
-but it was conceived to prompt the user for confirmation, while
-`peekPublicKey` is expected to be available when auto-login is on,
-which is the default when using a napp launcher.
+The app store is there to help the user discover and install new Nostr apps.
 
-### Napp Discovery
+<img width="495" height="501" alt="2-app-store" src="https://github.com/user-attachments/assets/76370969-26d8-4c4f-9909-3c69c7a1399a" />
 
-`Napp stores` are regular napps focused on helping users discover
-new napps.
+#### Account Creation
 
-They are also used to upload dev's static websites to
-automatically make them become napps, **without any prior code
-adaptation**.
+The account creation is very straightforward. Pick an avatar and a name.
 
-### Security
+<img width="495" height="501" alt="3-create-account" src="https://github.com/user-attachments/assets/f0d60439-87b9-4695-adb8-46daed37ce2f" />
 
-44Billion pioneered a way of securely storing and
-managing Nostr privkeys, that is specially thought for
-non tech savvy users, while being self-hostable
-for those that want more control.
-[Learn more](https://github.com/44Billion/44b-vault).
+#### Account Syncing
 
-### Why was This Created?
+The nsec is encrypted and synchronized across devices by using passkeys. Existing nsecs can be imported as well.
 
-To help with user onboarding and retention. There's a whole world of differences between
-simply listing separate nostr webapps links like on
-[nostrapps.com](https://nostrapps.com/)
-and providing a cohesive platform like [44Billion](https://44billion.net)
-that holds user hands at every step they take, including login, keys backup,
-app pinning and soon user data backup among other amenities.
+<img width="495" height="501" alt="4-synced-passkeys" src="https://github.com/user-attachments/assets/73402d40-5bfa-4f01-b8b1-0439168ba007" />
 
-44Billion turns webapps into instantly loaded, offline-first,
-`window.nostr` enhanced napps, permissionlessly discoverable on napp stores.
+#### All apps have access to `window.nostr`
 
-Last but not least, manual napp updates! This solves a
-[long standing problem with webapps](https://njump.me/naddr1qvzqqqr4gupzqwlsccluhy6xxsr6l9a9uhhxf75g85g8a709tprjcn4e42h053vaqyf8wumn8ghj7enfv96x5ctx9e3k7mf0qqyrvwpj89skgwrz0upj9h).
+When opening an app, the user is already logged-in there.
 
-All this with a thin overlay user interface that doesn't get in the way of the user.
-The user won't notice the complexity running behind the scenes.
+<img width="495" height="501" alt="5-auto-login" src="https://github.com/user-attachments/assets/826b0dc4-2709-473a-9855-7e36fb290a02" />
 
-### Development Backlog
+### Free relay for our users and everyone else
 
-Progress overview: 4 / 20 completed
+We have a free and spam-resistant relay too at wss://relay.44billion.net. Open-source code: [https://github.com/44Billion/44b-relay](https://github.com/44Billion/44b-relay). While we're at it, also check the core platform code: [https://github.com/44Billion/44billion](https://github.com/44Billion/44billion), the signer module repo: [https://github.com/44Billion/44b-vault](https://github.com/44Billion/44b-vault) and the app store [https://github.com/44Billion/nappstore](https://github.com/44Billion/nappstore)
 
-#### ✅ Completed
-- [x] Basic app dock
-- [x] Multi-account support
-- [x] Multi-window support
-- [x] External Login Module
+### Boring Details
 
-#### 🧱 Core Platform
-- [ ] App update management
-- [ ] Custom Login Module selection
-- [ ] App embedding (enable a napp to load other napps)
-- [ ] App embedding on notes (a specific napp route loaded on a kind:1 note)
-- [ ] Human-readable napp names (aliases)
-- [ ] Polish UI
+- Apps files are stored on Blossom.
+- App manifest (NIP-5A) and app listing (NIP-5B) events on relays.
+- Anyone can publish an app without asking and it shows on the app store.
+- Login is handled by a signer that lives on a separata domain: Github Pages by default.
+- 44billion.net can't access your nsec directly and you may even self-host the signer.
 
-#### 🛍 Napp Discovery & Distribution
-- [ ] App store napp (upload, categories, reviews) — only upload and basic listing exists today
+### Cool Detail
 
-#### 🧩 Built-in / Starter Napps
-- [ ] Basic short-notes napp
-- [ ] Basic messenger napp
+Apps are installed locally. It allows you to control if and when to update them:
 
-#### 🌐 Relays & Data Flow
-- [ ] Free Public Relay
-- [ ] Free Outbox Relay to expose events on user's local DB (novel approach)
-
-#### 🔐 Cryptography & Security
-- [ ] Signer Security Add-Ons
-- [ ] Trust On First Use (TOFU) for app secondary signing key
-- [ ] FROST support
-
-#### 📈 Quality & Reliability
-- [ ] Increase Test Coverage
-- [ ] Improve stability across different OSs
+<img width="422" height="629" alt="6-local-apps" src="https://github.com/user-attachments/assets/8a33632c-e576-4864-bc2d-9a30c6713338" />
