@@ -4,6 +4,9 @@
 presents itself as a thin layer, a toolbar where
 the Nostr apps you install are placed.
 
+If we were to label it, I'd call it a "Nostr app launcher"
+that includes an app store for app discovery.
+
 #### Initial View
 
 One of the initial apps is an app store.
@@ -51,3 +54,9 @@ We have a free and spam-resistant relay too at wss://relay.44billion.net. Open-s
 Apps are installed locally. It allows you to control if and when to update them:
 
 <img width="422" height="629" alt="6-local-apps" src="https://github.com/user-attachments/assets/8a33632c-e576-4864-bc2d-9a30c6713338" />
+
+### A video showing the multi-user and multi-app features
+
+https://github.com/user-attachments/assets/910e299e-2410-441d-8424-d03d741c69a3
+
+
